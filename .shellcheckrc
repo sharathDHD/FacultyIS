@@ -1,0 +1,13 @@
+# ShellCheck configuration for FacultyIS
+# https://www.shellcheck.net/
+
+# We use bash in all scripts
+shell = "bash"
+
+# Exclude false positives from podman-compose subcommands
+# SC2086 (double quote to prevent globbing) — we intentionally leave
+# $COMPOSE_CMD unquoted so podman-compose receives the flags correctly
+exclude = SC2086
+
+# External sources — allow sourcing .env files
+external-sources = true

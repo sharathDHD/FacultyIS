@@ -1,0 +1,43 @@
+# ──────────────────────────────────────────────────────────
+# FacultyIS v2.2 — .gitignore
+# ──────────────────────────────────────────────────────────
+
+# Environment — secrets must never be committed
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# uv lockfile is committed (reproducible deps), but venv is not
+
+# PHP
+vendor/
+
+# Runtime data
+data/*.sqlite3
+data/uploads/
+data/backups/
+
+# Process IDs (from start.sh)
+.pids/
+
+# Logs
+logs/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Archives
+*.tar.gz
+*.zip
+
+# Node (if any dev tooling)
+node_modules/
