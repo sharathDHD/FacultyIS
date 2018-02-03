@@ -1,0 +1,2 @@
+<?php
+// Navbar - placeholder
