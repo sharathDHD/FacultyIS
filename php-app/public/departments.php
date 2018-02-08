@@ -1,0 +1,2 @@
+<?php
+// Departments - placeholder
