@@ -1,0 +1,2 @@
+<?php
+// Set Password - placeholder

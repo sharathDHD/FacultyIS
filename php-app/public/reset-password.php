@@ -1,0 +1,2 @@
+<?php
+// Reset Password - placeholder
