@@ -1,5 +1,5 @@
 <?php
-// Version: v2.12 + IDOR fix: department_id preservation
+// Version: v2.12
 
 
 /**
