@@ -1,8 +1,5 @@
 # Faculty Information System (FacultyIS) v2.12
 
-> Version: v2.12
-
-
 A hybrid **PHP (frontend/CRUD) + Flask (analytics API)** application for
 managing faculty information, attendance, timetables, documents, and reports.
 
