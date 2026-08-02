@@ -1,6 +1,6 @@
 # Authorization Policy — FacultyIS v2.16
 
-> Version: v2.12
+> Version: v2.13
 
 
 This document defines the **single source of truth** for authorization
