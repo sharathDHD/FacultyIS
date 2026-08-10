@@ -1,6 +1,4 @@
 <?php
-// Version: v2.13
-
 
 /**
  * Audit logging — records every significant mutation for traceability.

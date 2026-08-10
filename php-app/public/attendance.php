@@ -1,6 +1,4 @@
 <?php
-// Version: v2.12
-
 require __DIR__ . '/../src/bootstrap.php';
 Auth::requireLogin();
 $user = Auth::user();
