@@ -1,6 +1,4 @@
 <?php
-// Version: v2.13
-
 
 /**
  * AuthorizationPolicy — Centralized write-side authorization.
