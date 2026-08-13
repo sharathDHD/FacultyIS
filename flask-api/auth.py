@@ -1,4 +1,3 @@
-# Version: v2.15
 from functools import wraps
 
 import jwt

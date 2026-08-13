@@ -1,4 +1,3 @@
-# Version: v2.15
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()

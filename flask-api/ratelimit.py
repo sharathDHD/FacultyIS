@@ -1,4 +1,3 @@
-# Version: v2.15
 """
 In-process rate limiter for FacultyIS.
 

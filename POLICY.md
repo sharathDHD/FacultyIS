@@ -1,8 +1,5 @@
 # Authorization Policy — FacultyIS v2.16
 
-> Version: v2.13
-
-
 This document defines the **single source of truth** for authorization
 decisions in FacultyIS. Both the PHP frontend and Flask API must
 conform to this policy.

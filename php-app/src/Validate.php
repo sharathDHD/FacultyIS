@@ -1,6 +1,4 @@
 <?php
-// Version: v2.15
-
 
 /**
  * Validate — Centralized input validation helpers.

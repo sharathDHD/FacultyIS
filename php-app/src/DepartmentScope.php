@@ -1,6 +1,4 @@
 <?php
-// Version: v2.13
-
 
 /**
  * DepartmentScope — Centralized read-side department authorization helper.
