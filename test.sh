@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════
-# FacultyIS v2.16 — Smoke Tests (local dev)
+# FacultyIS — Smoke Tests (local dev)
 # ═══════════════════════════════════════════════════════════
 # Tests the full user journey: health → login → session →
 # dashboard → role auth → CRUD → reports → exports → logout
@@ -34,14 +34,61 @@ http_status() {
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$PROJECT_DIR"
 
+# ── Derive version from pyproject.toml ──────────────────────
+# shellcheck disable=SC2312
+APP_VERSION="${APP_VERSION:-$(grep -m1 '^version' "$PROJECT_DIR/pyproject.toml" 2>/dev/null | sed 's/.*=.*"\(.*\)"/\1/')}"
+APP_VERSION="${APP_VERSION:-unknown}"
+
+# ═══════════════════════════════════════════════════════════
+# Step 0: Check prerequisites — fail clearly if unavailable
+# ═══════════════════════════════════════════════════════════
+PREREQ_FAIL=0
+
+if ! command -v curl &>/dev/null; then
+  printf "  ${RED}✗${R} curl is required for smoke tests but not found\n"
+  printf "  ${D}Install: sudo apt install curl (or equivalent)${R}\n"
+  PREREQ_FAIL=1
+fi
+
+if ! command -v sqlite3 &>/dev/null; then
+  printf "  ${RED}✗${R} sqlite3 CLI is required for DB queries but not found\n"
+  printf "  ${D}Install: sudo apt install sqlite3 (or equivalent)${R}\n"
+  PREREQ_FAIL=1
+fi
+
 # ── Database path for direct SQLite queries ────────────────
 DB_PATH="$PROJECT_DIR/data/facultyis.sqlite3"
+
+if [ ! -f "$DB_PATH" ]; then
+  printf "  ${RED}✗${R} Database not found at %s\n" "$DB_PATH"
+  printf "  ${D}Run ./start.sh first to initialize the database.${R}\n"
+  PREREQ_FAIL=1
+fi
+
+# ── Check that services are reachable ──────────────────────
+FLASK_REACHABLE=0
+if command -v curl &>/dev/null; then
+  if curl -s -o /dev/null --max-time 2 "$FLASK_URL/api/health/live" 2>/dev/null; then
+    FLASK_REACHABLE=1
+  fi
+fi
+
+if [ $FLASK_REACHABLE -eq 0 ]; then
+  printf "  ${RED}✗${R} Flask API not reachable at %s\n" "$FLASK_URL"
+  printf "  ${D}Run ./start.sh first to start the services.${R}\n"
+  PREREQ_FAIL=1
+fi
+
+if [ $PREREQ_FAIL -eq 1 ]; then
+  printf "\n  ${RED}Prerequisites not met. Fix the above issues before running tests.${R}\n\n"
+  exit 2
+fi
 
 # ── Use a project-local temp cookie file ───────────────────
 COOKIE_FILE=$(mktemp /tmp/facultyis_cookies.XXXXXX)
 trap 'rm -f "$COOKIE_FILE"' EXIT
 
-printf "\n  ${B}${C}FacultyIS${R} ${D}Smoke Tests${R}\n"
+printf "\n  ${B}${C}FacultyIS${R} ${D}v${APP_VERSION} Smoke Tests${R}\n"
 printf "  ${GR}──────────────────────────────${R}\n\n"
 
 # ── 1. Health checks ───────────────────────────────────────

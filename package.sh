@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════
-# FacultyIS v2.16 — Release Packaging
+# FacultyIS — Release Packaging
 # ═══════════════════════════════════════════════════════════
 # Creates a clean release archive excluding development-only
 # artifacts (.git, .venv, data, logs, .pids, .env).
 #
-#   ./package.sh                    — creates FacultyIS-v2.16.tar.gz
+#   ./package.sh                    — creates FacultyIS-vX.Y.tar.gz
 #   ./package.sh --output /tmp/out  — custom output directory
 # ═══════════════════════════════════════════════════════════
 set -uo pipefail

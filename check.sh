@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════
-# FacultyIS v2.12 — Quality Check Pipeline
+# FacultyIS — Quality Check Pipeline
 # ═══════════════════════════════════════════════════════════
 set -uo pipefail
 
@@ -8,6 +8,11 @@ R='\033[0m'; B='\033[1m'; D='\033[2m'; G='\033[32m'; Y='\033[33m'; RED='\033[31m
 
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$PROJECT_DIR"
+
+# ── Derive version from pyproject.toml ──────────────────────
+# shellcheck disable=SC2312
+APP_VERSION="${APP_VERSION:-$(grep -m1 '^version' "$PROJECT_DIR/pyproject.toml" 2>/dev/null | sed 's/.*=.*"\(.*\)"/\1/')}"
+APP_VERSION="${APP_VERSION:-unknown}"
 
 FIX=0
 for arg in "$@"; do

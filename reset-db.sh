@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════
-# FacultyIS v2.12 — Reset Database (local dev)
+# FacultyIS — Reset Database (local dev)
 # ═══════════════════════════════════════════════════════════
 # Drops all FacultyIS tables and recreates with seed data.
 # Safe: creates a consistent SQLite backup before destroying anything.
@@ -15,6 +15,11 @@ R='\033[0m'; B='\033[1m'; D='\033[2m'; G='\033[32m'; Y='\033[33m'; RED='\033[31m
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$PROJECT_ROOT"
+
+# ── Derive version from pyproject.toml ──────────────────────
+# shellcheck disable=SC2312
+APP_VERSION="${APP_VERSION:-$(grep -m1 '^version' "$PROJECT_ROOT/pyproject.toml" 2>/dev/null | sed 's/.*=.*"\(.*\)"/\1/')}"
+APP_VERSION="${APP_VERSION:-unknown}"
 
 DB_PATH="$PROJECT_ROOT/data/facultyis.sqlite3"
 BACKUP_DIR="$PROJECT_ROOT/data/backups"

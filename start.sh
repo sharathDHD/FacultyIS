@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════
-# FacultyIS v2.12 — Start (local development)
+# FacultyIS — Start (local development)
 # ═══════════════════════════════════════════════════════════
 # Copy this folder → run this script → it works.
 #
@@ -13,6 +13,11 @@ R='\033[0m'; B='\033[1m'; D='\033[2m'; G='\033[32m'; Y='\033[33m'; C='\033[36m';
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$PROJECT_ROOT"
+
+# ── Derive version from pyproject.toml ──────────────────────
+# shellcheck disable=SC2312
+APP_VERSION="${APP_VERSION:-$(grep -m1 '^version' "$PROJECT_ROOT/pyproject.toml" 2>/dev/null | sed 's/.*=.*"\(.*\)"/\1/')}
+APP_VERSION="${APP_VERSION:-unknown}"
 
 PID_DIR="$PROJECT_ROOT/.pids"
 LOG_DIR="$PROJECT_ROOT/logs"
@@ -45,7 +50,7 @@ if [ -f "$PROJECT_ROOT/.env" ]; then
   set +a
 fi
 
-printf "\n  ${B}FacultyIS${R} ${D}v2.12${R}\n"
+printf "\n  ${B}FacultyIS${R} ${D}v${APP_VERSION}${R}\n"
 printf "  ${GR}──────────────────────────────${R}\n\n"
 
 # ═══════════════════════════════════════════════════════════

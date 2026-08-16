@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════
-# FacultyIS v2.12 — Stop
+# FacultyIS — Stop
 # ═══════════════════════════════════════════════════════════
 # Kills only the FacultyIS processes started by ./start.sh.
 # Verifies PID belongs to FacultyIS before sending signals.
@@ -12,6 +12,11 @@ R='\033[0m'; G='\033[32m'; Y='\033[33m'; D='\033[2m'; B='\033[1m'; GR='\033[90m'
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PID_DIR="$PROJECT_ROOT/.pids"
+
+# ── Derive version from pyproject.toml ──────────────────────
+# shellcheck disable=SC2312
+APP_VERSION="${APP_VERSION:-$(grep -m1 '^version' "$PROJECT_ROOT/pyproject.toml" 2>/dev/null | sed 's/.*=.*"\(.*\)"/\1/')}"
+APP_VERSION="${APP_VERSION:-unknown}"
 
 STOPPED=0
 
